@@ -1,13 +1,13 @@
 package com.example.tarea1;
 
 import android.app.DatePickerDialog;
+import android.content.Intent;
 import android.graphics.Color;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.*;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
-import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -37,7 +37,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         cbxGenero.setAdapter(Adapter);
         cbxGenero.setOnItemSelectedListener(this);
 
-        txtNombre = findViewById(R.id.txtNombre);
+        txtNombre = findViewById(R.id.txtName);
 
         txtApellido = findViewById(R.id.txtApellido);
 
@@ -115,6 +115,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void valid(View view){
 
         Boolean val = true;
+        String lenN = "";
         if(txtNombre.getText().toString().isEmpty()){
             txtNombre.setError("Debe ingresar el nombre");
             val = false;
@@ -130,23 +131,38 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             errorText.setText("Seleccionar Genero");
             val = false;
         }
-        if(txtFecha.getText().toString().equalsIgnoreCase("Seleccionar Fecha")){
-            txtFecha.setError("Debe seleccioanr una fecha");
+        /*if(txtFecha.getHint().toString().equalsIgnoreCase("Seleccionar Fecha")){
+            txtFecha.setError("");
+            txtFecha.setText("Seleccionar Fecha");
+            txtFecha.setTextColor(Color.RED);
             val = false;
-        }
+        }*/
         if(rbnSi.isChecked()){
-            String len = "",lenN;
+            String len = "";
             for(CheckBox aux:languages){
                 if(aux.isChecked()){
                     len += " "+aux.getText().toString()+",";
                 }
             }
-            //lenN = len.substring(len.length()-2,len.length()-1);
+            if(len.length() > 2)
+                lenN = len.substring(0,len.length()-1);
             if(len.length() <= 1){
                // lbLenguaje.setError("Debe seleccionar al menos un lenguaje");
                 Toast.makeText(MainActivity.this,"Debe seleccionar al menos un lenguaje",Toast.LENGTH_SHORT).show();
                 val = false;
             }
+
+        }
+
+        if(val){
+            Intent intent = new Intent(this,ShowInfoActivity.class);
+            intent.putExtra("NOMBRE",this.txtNombre.getText().toString());
+            intent.putExtra("APELLIDO",this.txtApellido.getText().toString());
+            intent.putExtra("GENERO",this.cbxGenero.getSelectedItem().toString());
+            intent.putExtra("FECHA",this.txtFecha.getText().toString());
+            intent.putExtra("LENGUAJES",lenN);
+            //startActivity(intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
+            startActivity(intent);
 
         }
     }
