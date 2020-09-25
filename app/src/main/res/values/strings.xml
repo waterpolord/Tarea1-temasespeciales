@@ -1,0 +1,21 @@
+<resources>
+    <string name="app_name">My First App</string>
+    <string name="name">Digite su nombre...</string>
+    <string name="last_name">Digite su apellido...</string>
+    <string name="masculino">Masculino</string>
+    <string name="femenino">Femenino</string>
+
+    <string name="jar">Java</string>
+    <string name="py">Python</string>
+    <string name="js">JS</string>
+    <string name="go">Go Lang</string>
+    <string name="cpp">C/C++</string>
+    <string name="cs">C#</string>
+    <string name="date">Seleccionar Fecha</string>
+
+    <string-array name="genders">
+        <item>Seleccionar Genero</item>
+        <item>Masculino</item>
+        <item>Femenino</item>
+    </string-array>
+</resources>
